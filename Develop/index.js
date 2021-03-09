@@ -1,102 +1,99 @@
+// TODO: Include packages needed for this application
+
+// TODO: Create an array of questions for user input
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Choices = require('inquirer/lib/objects/choices');
+const util = require('util');
+const generate = require('./utils/generateMarkdown');
+const generateMarkdown = require('./utils/generateMarkdown');
 
+const questions = [{
+  type: 'input',
+  name: 'title',
+  message: 'What would you like your title to be?',
+},
+{
+  type: 'input',
+  name: 'description',
+  message:'description of your project.'
 
+},
+{
+  type: 'input',
+  name: 'install',
+  message:'Add any installation instructions.'
 
-const generateREADME = (response) =>
-`# ${response.title}
-## Table of Contents
-* [Description](#description)
-* [Installation](#installation)
-* [Usage](#usage)
-* [License](#license)
-* [Contributing](#contributing)
-* [Tests](#tests)
-* [Questions](#questions)
-## Description
-${response.description}
-## Installation
-${response.install}
-## Usage
-${response.usage}
-## License 
-This application has the following License: ${response.license}
-## Contributing
-${response.contribution}
-## Tests
-${response.test}`;
+},
+{
+  type: 'input',
+  name: 'usage',
+  message:'Add usage information.'
 
+},
+{
+  type: 'input',
+  name: 'contribution',
+  message:'Add contribution guidelines.'
 
+},
+{
+  type: 'input',
+  name: 'test',
+  message:'Add test instructions.'
 
-inquirer
-  .prompt([
-    {
-      type: 'input',
-      name: 'title',
-      message: 'What would you like your title to be?',
-    },
-    {
-      type: 'input',
-      name: 'description',
-      message:'description of your project.'
+},
+{
+  type: 'list',
+  name: 'license',
+  message:'Would you like to add a license?.',
+  choices: ['None', 'Apache', 'MIT', 'BSD']
 
-    },
-    {
-      type: 'input',
-      name: 'install',
-      message:'Add any installation instructions.'
+},
+{
+  type: 'input',
+  name: 'name',
+  message: 'What is your name?',
+},
+{
+  type: 'input',
+  name: 'location',
+  message: 'Where do you live?',
+},
+{
+  type: 'input',
+  name: 'linkd',
+  message: 'What is your linkedin bio?',
+},
+{
+    type: 'input',
+    name: 'githubname',
+    message: 'What is your GitHub username?'
+},
+]
 
-    },
-    {
-      type: 'input',
-      name: 'usage',
-      message:'Add usage information.'
+// TODO: Create a function to write README file
+function writeToFile(fileName, data) {
 
-    },
-    {
-      type: 'input',
-      name: 'contribution',
-      message:'Add contribution guidelines.'
+  fs.writeFile(fileName, data, function(err){
+    console.log(fileName)
+    console.log(data)
+    if (err) {
+      return console.log(err)
+    } else {
+      console.log("Congrats! README is generated.")
+    }
+  })
+}
 
-    },
-    {
-      type: 'input',
-      name: 'test',
-      message:'Add test instructions.'
+// TODO: Create a function to initialize app
+function init() {
+  inquirer.prompt(questions)
+  .then(function(data) {
+    writeToFile("README.md", generateMarkdown(data));
+    console.log(data)
+  })
+}
 
-    },
-    {
-      type: 'list',
-      name: 'license',
-      message:'Would you like to add a license?.',
-      choices: ['None', 'Apache', 'MIT', 'BSD']
-
-    },
-    {
-      type: 'input',
-      name: 'name',
-      message: 'What is your name?',
-    },
-    {
-      type: 'input',
-      name: 'location',
-      message: 'Where do you live?',
-    },
-    {
-      type: 'input',
-      name: 'linkd',
-      message: 'What is your linkedin bio?',
-    },
-    {
-        type: 'input',
-        name: 'githubname',
-        message: 'What is your GitHub username?'
-    },
-  ]).then((response) => {
-    const readme = generateREADME(response);
-    fs.writeFile('README.md', readme, (err) => 
-    err ? console.log(err) : console.log('Success!'));
-  });
-  
-    
+// Function call to initialize app
+init();
+ 
