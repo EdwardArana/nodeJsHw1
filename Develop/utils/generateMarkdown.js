@@ -57,7 +57,8 @@ This application has the following License: ${response.license}
 ${response.contribution}
 ## Tests
 ${response.test}
-https://github.com/${response.username}`
+## GitHub
+https://github.com/${response.githubname}`
 ;
 }
 
