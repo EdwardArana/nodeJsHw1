@@ -6,6 +6,18 @@ function renderLicenseBadge(license) {
     case "MIT":
       licenseLink = "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)"
       return licenseLink
+    case "APACHE 2.0":
+      licenseLink = "![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)"
+      return licenseLink
+      case "GPL 3.0":
+      licenseLink = "![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)"
+      return licenseLink
+      case "BSD 3":
+      licenseLink = "![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)"
+      return licenseLink
+    default:
+      licenseLink = "None"
+      return licenseLink
     }}
 
 // TODO: Create a function that returns the license link
